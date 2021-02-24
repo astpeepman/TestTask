@@ -1,0 +1,10 @@
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.csprojAssemblyReference.cache
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.Form1.resources
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.Properties.Resources.resources
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.csproj.GenerateResource.cache
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.csproj.CoreCompileInputs.cache
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\bin\Debug\TestTask_2.exe.config
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\bin\Debug\TestTask_2.exe
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\bin\Debug\TestTask_2.pdb
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.exe
+G:\Работа\TestTaskC#\TestTask_2\TestTask_2\obj\Debug\TestTask_2.pdb

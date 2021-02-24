@@ -72,21 +72,19 @@ namespace TestTask_2
 
             string[] str = Environment.GetLogicalDrives();
             int n = 1;
+            TreeNode tn = treeView1.Nodes.Add("Компьютер");
             foreach (string s in str)
             {
                 try
                 {
-                    TreeNode tn = new TreeNode();
-                    tn.Name = s;
-                    tn.Text = "Диск " + s;
-                    treeView1.Nodes.Add(tn.Name, tn.Text);
+                    tn.Nodes.Add(s, "Диск " + s);
                     FileInfo f = new FileInfo(@s);
                     string t = "";
                     string[] str2 = Directory.GetDirectories(@s);
                     foreach (string s2 in str2)
                     {
                         t = s2.Substring(s2.LastIndexOf('\\') + 1);
-                        treeView1.Nodes[n - 1].Nodes.Add(s2, t);
+                        tn.Nodes[n - 1].Nodes.Add(s2, t);
                     }
                 }
                 catch { }
@@ -96,8 +94,11 @@ namespace TestTask_2
             try
             {
                 StreamReader fstream = new StreamReader("data.txt");
-                textBox1.Text = fstream.ReadLine();
+
+                textBox2.Text = fstream.ReadLine();
                 currentListViewAdress = fstream.ReadLine();
+                label1.Text = currentListViewAdress;
+                textBox1.Text = currentListViewAdress;
                 fstream.Close();
 
                 FileInfo f = new FileInfo(currentListViewAdress);
@@ -169,27 +170,32 @@ namespace TestTask_2
                 Adresses.Add(strtmp);
                 currentIndex = 0;
             }
-            Adresses.Add(e.Node.Name);
-            currentIndex++;
-
-            listView1.Items.Clear();
-            currentListViewAdress = e.Node.Name;
-            textBox1.Text = currentListViewAdress;
-
-            label1.Text = currentListViewAdress;
-
-
-            try
+            if (e.Node.Name!="")
             {
-                string[] str2 = Directory.GetDirectories(e.Node.Name);
-                string[] str3 = Directory.GetFiles(@e.Node.Name);
-                FileInfo f = new FileInfo(e.Node.Name);
-                DrawListView(f, str2, str3);
-            }
-            catch { }
+                Adresses.Add(e.Node.Name);
+                currentIndex++;
 
-            label5.Text = "Кол-во папок: " + folderCount;
-            label5.Text += "  Кол-во файлов: " + fileCount;
+                listView1.Items.Clear();
+                currentListViewAdress = e.Node.Name;
+                textBox1.Text = currentListViewAdress;
+
+                label1.Text = currentListViewAdress;
+
+
+                try
+                {
+                    string[] str2 = Directory.GetDirectories(e.Node.Name);
+                    string[] str3 = Directory.GetFiles(@e.Node.Name);
+                    FileInfo f = new FileInfo(e.Node.Name);
+                    DrawListView(f, str2, str3);
+                }
+                catch { }
+
+                label5.Text = "Кол-во папок: " + folderCount;
+                label5.Text += "  Кол-во файлов: " + fileCount;
+            }
+            
+            
 
         }
 
@@ -378,20 +384,20 @@ namespace TestTask_2
             string foldername = dir.Substring(dir.LastIndexOf('\\') + 1);
 
 
-            //try
-            //{
-            //    MatchCollection match = regex.Matches(foldername);
+            try
+            {
+                MatchCollection match = regex.Matches(foldername);
 
-            //    if (match.Count != 0)
-            //    {
-            //        FileInfo f = new FileInfo(dir);
-            //        string type = "папка";
-            //        ListViewItem lw = new ListViewItem(new string[] { foldername, "", type, f.LastWriteTime.ToString() }, 0);
-            //        lw.Name = dir;
-            //        Invoke(new Action(() => listView1.Items.Add(lw)));
-            //    }
-            //}
-            //catch { }
+                if (match.Count != 0)
+                {
+                    FileInfo f = new FileInfo(dir);
+                    string type = "папка";
+                    ListViewItem lw = new ListViewItem(new string[] { foldername, "", type, f.LastWriteTime.ToString() }, 0);
+                    lw.Name = dir;
+                    Invoke(new Action(() => listView1.Items.Add(lw)));
+                }
+            }
+            catch { }
 
 
             TreeNode tek_tn = new TreeNode(foldername);
@@ -408,11 +414,11 @@ namespace TestTask_2
                         tek_tn.Nodes.Add(filename);
                         findfileCount++;
 
-                        //FileInfo f = new FileInfo(@file);
-                        //string type = "файл";
-                        //ListViewItem lw = new ListViewItem(new string[] { filename, f.Length.ToString() + "байт", type, f.LastWriteTime.ToString() }, 1);
-                        //lw.Name = file;
-                        //Invoke(new Action(() => listView1.Items.Add(lw)));
+                        FileInfo f = new FileInfo(@file);
+                        string type = "файл";
+                        ListViewItem lw = new ListViewItem(new string[] { filename, f.Length.ToString() + "байт", type, f.LastWriteTime.ToString() }, 1);
+                        lw.Name = file;
+                        Invoke(new Action(() => listView1.Items.Add(lw)));
 
                     }
                 }
@@ -584,7 +590,7 @@ namespace TestTask_2
             findfileCount = 0;
             analysFilesCount = 0;
             seconds = 0;
-            //listView1.Items.Clear();
+            listView1.Items.Clear();
             treeView2.Nodes.Clear();
 
             string filename = textBox2.Text;
